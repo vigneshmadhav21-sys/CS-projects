@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Library Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Library Books</h1>
+
+    <p>Welcome, {{ session.user_name }} | <a href="/logout">Logout</a></p>
+
+    <form method="POST" action="/search">
+        <input type="text" name="query" placeholder="Search book by title">
+        <button type="submit">Search</button>
+    </form>
+
+    <a href="/mybooks">My Borrowed Books</a>
+
+    {% if is_admin() %}
+    <p>
+        <a href="/admin/add">Add Book</a> |
+        <a href="/admin/transactions">View Transactions</a>
+    </p>
+    {% endif %}
+
+    {% if search %}
+    <p>Search results for "{{ search }}"</p>
+    {% endif %}
+
+    <ul>
+        {% for book in books %}
+        <li>
+            {{ book[1] }} by {{ book[2] }} ({{ book[3] }} copies)
+            {% if book[3] > 0 %}
+            <a href="/borrow/{{ book[0] }}">Borrow</a>
+            {% else %}
+            <span>Not available</span>
+            {% endif %}
+            {% if is_admin() %}
+            <a href="/admin/remove/{{ book[0] }}">Remove</a>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

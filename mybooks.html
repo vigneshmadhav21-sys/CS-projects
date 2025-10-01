@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Borrowed Books</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>My Borrowed Books</h1>
+
+    <ul>
+        {% for book in books %}
+        <li>
+            {{ book[1] }} by {{ book[2] }} (Borrowed on {{ book[3] }})
+            <a href="/return/{{ book[0] }}">Return</a>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="/">Back to Home</a>
+</body>
+</html>

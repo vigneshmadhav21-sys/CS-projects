@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Transactions</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>All Transactions</h1>
+    <ul>
+        {% for t in transactions %}
+        <li>
+            ID: {{ t[0] }}, User: {{ t[1] }}, Book: {{ t[2] }}, Borrowed: {{ t[3] }}, Returned: {{ t[4] if t[4] else "Not Returned" }}
+        </li>
+        {% endfor %}
+    </ul>
+    <a href="/">Back to Home</a>
+</body>
+</html>
